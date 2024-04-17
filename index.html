@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
+  <title>Interactive card details form</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 18px;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    main {
+      height: 100%;
+      display: flex;
+      max-width: 1440px;
+      width: 100%;
+    }
+
+    #cardDiv {
+      width: 30%;
+      height: 100%;
+      background-image: url(./images/bg-main-desktop.png);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-size: cover;
+    }
+
+    .cards {
+      position: relative;
+      width: 100%;
+      height: 50%;
+      max-height: 300px;
+    }
+
+    #formDiv {
+      width: 70%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    #formDiv>form {
+      max-width: 300px;
+    }
+
+    #frontCardImg {
+      position: absolute;
+      right: -120px;
+      top: -50%;
+    }
+
+
+    #backCardImg {
+      position: absolute;
+      right: -180px;
+      top: 50%;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-top: 20px;
+    }
+
+    input {
+      border: 1px solid hsl(270, 3%, 87%);
+      border-radius: 5px;
+      padding: 5px;
+      font-size: 1rem;
+    }
+
+    input:focus {
+      outline: none;
+      border: 2px solid;
+      border-image: linear-gradient(hsl(249, 99%, 64%), hsl(278, 94%, 30%));
+      border-image-slice: 1;
+    }
+
+    img {
+      box-shadow: 8px 5px 25px hsl(278, 94%, 30%, 0.2);
+    }
+
+    @media screen and (max-width: 1040px) {
+      body {
+        height: 100%;
+      }
+
+      main {
+        flex-direction: column;
+      }
+
+      #cardDiv {
+        background-image: url(./images/bg-main-mobile.png);
+        height: 240px;
+        width: 100%;
+        background-size: cover;
+      }
+
+      .cards {
+        max-width: 300px;
+        width: 50%;
+        height: 100%;
+      }
+
+      #formDiv {
+        width: 100%;
+      }
+
+      #frontCardImg {
+        top: 60%;
+        right: 0%;
+        z-index: 10;
+        width: 250px;
+      }
+
+      #backCardImg {
+        top: 20%;
+        right: -10%;
+        width: 250px;
+
+      }
+
+      #formDiv>form {
+        padding-top: 180px;
+      }
+
+      #cvcOnCard{
+        right: 5% !important;
+        top: 44% !important;
+        font-size: small;
+      }
+
+      #frontCardText{
+        z-index: 20;
+        top: 80% !important;
+        left: 5% !important;
+      }
+
+      #frontCardText> #numberOnCard{
+        font-size: 1rem !important;
+      }
+
+      #frontCardText> div{
+        font-size: 0.8rem !important;
+      }
+
+
+      @media screen and (max-width: 400px) {
+        #frontCardText{
+        z-index: 20;
+        top: 75% !important;
+        left: -10% !important;
+      }
+        
+      }
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <main>
+    <div id="cardDiv">
+      <div class="cards">
+        <div style="width: 100%; height: 100%;">
+          <img src="./images/bg-card-front.png" alt="cardFront" id="frontCardImg">
+          <div style="position: absolute; left: 25%; top: -15%; color: #fff; width: 100%; text-align: center;" id="frontCardText">
+            <p id="numberOnCard" style="font-size: 2rem;">0000 0000 0000 0000</p>
+            <div style="display: flex; justify-content: space-around;">
+              <p id="nameOnCard">JANE APPLESEED</p>
+              <p id="expiryOnCard"><span id="mmOnCard">00</span>/<span id="yyOnCard">00</span></p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <img src="./images/bg-card-back.png" alt="cardBack" id="backCardImg">
+          <p id="cvcOnCard" style="position: absolute; z-index: 20; right: -30%;top: 85%;color: #fff; ">000</p>
+        </div>
+      </div>
+    </div>
+    <div id="formDiv">
+      <form>
+        <label for="cName"> CARDHOLDER NAME</label>
+        <input id="cName" name="cardHolderName" type="text" placeholder="eg. Jane Applessed" required>
+
+        <label for="cNum"> CARD NUMBER</label>
+        <input id="cNum" name="cardNumber" type="text" placeholder="eg. 1234 5678 9123 0000" required>
+
+        <div style="display: flex; justify-content: space-between;">
+          <div>
+            <label for="expiryDate">EXP, DATE (MM/YY)</label><br>
+            <input maxlength="2" name="cardExpMonth" id="expiryMM" min="01" max="12" placeholder="MM" type="number"
+              required>
+            <input id="expiryYY" name="cardExpYear" max="99" min="01" maxlength="2" placeholder="YY" required
+              type="number">
+          </div>
+          <div>
+            <label for="cvcField">CVC</label>
+            <br>
+            <input type="number" name="cardCVC" maxlength="3" min="100" max="999" id="cvcField" style="width: 120px;"
+              required>
+          </div>
+        </div>
+        <button class="mt-4 w-100 p-2 rounded"
+          style="background-color: hsl(278, 68%, 11%);color: #fff;font-size: small; " type="submit">Confirm</button>
+      </form>
+
+    </div>
+  </main>
+
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="#" target="_blank">Mohd Azgar Ali</a>.
+  </div>
+
+
+
+
+  <script>
+    $(function () {
+      $("input").on({
+
+        blur: function (event) {
+          let idVal = event.target.id;
+          let val = event.target.value;
+          let regexForNoAlpha = /^[a-zA-Z]+$/;
+
+          if (idVal == "cName" && val == "") {
+            $("#errorMsg").remove();
+            $("#cName").after(`<p id="errorMsg" style="color:red;" class="m-0 h6">Can't be blank</p>`).css("border", "1px solid red",)
+          } else if (idVal == "cName" && val != "") {
+            $("#errorMsg").remove();
+            $('#cName').css("border", "1px solid hsl(270, 3%, 87%)")
+          }
+
+
+
+          if (idVal == "cNum" && val == "") {
+            $("#errorMsg2").remove();
+            $("#cNum").after(`<p id="errorMsg2" style="color:red;" class="m-0 h6">Can't be blank</p>`).css("border", "1px solid red",)
+          } else if (idVal == "cNum" && regexForNoAlpha.test(val)) {
+            $("#errorMsg2").remove();
+            $("#cNum").after(`<p id="errorMsg2" style="color:red;" class="m-0 h6">Wrong format, Numbers only</p>`).css("border", "1px solid red",)
+          } else if (idVal == "cNum" && val != "") {
+            $("#errorMsg2").remove();
+            $('#cNum').css("border", "1px solid hsl(270, 3%, 87%)")
+          }
+
+
+          if (idVal == "expiryMM" && val == "") {
+            $("#errorMsg3").remove();
+            $("#expiryYY").after(`<p id="errorMsg3" style="color:red;" class="m-0 h6">Can't be blank</p>`)
+            $('#expiryMM').css("border", "1px solid red",)
+          } else if (idVal == "expiryMM" && val != "") {
+            $("#errorMsg3").remove();
+            $('#expiryMM').css("border", "1px solid hsl(270, 3%, 87%)")
+          }
+
+
+          if (idVal == "expiryYY" && val == "") {
+            $("#errorMsg3").remove();
+            $("#expiryYY").after(`<p id="errorMsg3" style="color:red;" class="m-0 h6">Can't be blank</p>`).css("border", "1px solid red",)
+          } else if (idVal == "expiryYY" && val != "") {
+            $("#errorMsg3").remove();
+            $('#expiryYY').css("border", "1px solid hsl(270, 3%, 87%)")
+          }
+
+          if (idVal == "cvcField" && val == "") {
+            $("#errorMsg4").remove();
+            $("#cvcField").after(`<p id="errorMsg4" style="color:red;" class="m-0 h6">Can't be blank</p>`).css("border", "1px solid red",)
+          } else if (idVal == "cvcField" && val != "") {
+            $("#errorMsg4").remove();
+            $('#cvcField').css("border", "1px solid hsl(270, 3%, 87%)")
+          }
+        },
+
+        input: function (event) {
+          let { name, value } = event.target
+          console.log(`${name}:  ${value}`)
+
+          if (name == 'cardCVC') {
+            $('#cvcOnCard').text(value);
+          }
+
+
+          if(name=='cardHolderName'){
+            $('#nameOnCard').text(value)
+          }
+
+          if(name=='cardNumber'){
+            $('#numberOnCard').text(value)
+          }
+
+          if(name=='cardExpMonth'){
+            $('#mmOnCard').text(value)
+          }
+
+          if(name=='cardExpYear'){
+            $('#yyOnCard').text(value)
+          }
+
+        }
+
+      })
+
+    })
+
+    $("form").submit(function(event) {
+    event.preventDefault(); 
+    $('#formDiv').html(`<div style="display:flex; justify-content:center; flex-direction: column;align-items:center" class="p-2">
+      <img src="./images/icon-complete.svg" alt="rightTick" style="box-shadow:none;">
+      <h1>Thank You</h1>
+      <p>We've added your card details</p>
+      <button type="button" id="newForm" class="mt-4 w-100 p-2 rounded" style="background-color: hsl(278, 68%, 11%); color: #fff; font-size: small;"> Continue </button>
+      </div>`);
+});
+
+$(document).on('click', '#newForm', function() {
+    location.reload();
+});
+
+
+    $(function () {
+      $("#cNum").on({
+        input: function (event) {
+          let cardNumber = event.target.value.replace(/\s/g, ''); // Remove existing spaces
+          let formattedCardNumber = formatCardNumber(cardNumber);
+          $(this).val(formattedCardNumber);
+        }
+      });
+    });
+
+    function formatCardNumber(cardNumber) {
+      // Add a space after every four characters
+      return cardNumber.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
+    }
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
